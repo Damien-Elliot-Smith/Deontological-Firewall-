@@ -12,7 +12,7 @@ Deterministic Absolute Bound Check (DABC) introduced in DFW v6.2.
 
 import math
 import statistics
-import random
+import sys
 
 # --- Parameters ---
 BASELINE_VALUE = 100.0
@@ -50,10 +50,13 @@ def run_static_bias_test():
     # Evaluation
     if not variance_triggered and bound_violation:
         print("\n✅ PASS: DFW v6.2 DABC successfully detected static bias that variance logic missed.")
+        return 0
     elif variance_triggered:
         print("\n⚠️ Variance logic falsely triggered – potential overtuning.")
+        return 1
     else:
         print("\n❌ FAIL: Static bias not detected – DABC misconfigured or bounds incorrect.")
+        return 1
 
 if __name__ == "__main__":
-    run_static_bias_test()
+    sys.exit(run_static_bias_test())
