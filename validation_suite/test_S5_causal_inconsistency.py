@@ -19,6 +19,12 @@ This uses:
 It is a focused probe of the "causal link certification" idea from v5.0.
 """
 
+import os
+import sys
+
+# Make the repo root importable so `dfw_code` resolves when run from validation_suite/.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from dfw_code.hfl import PhysicalMetadata, verify_post_execution
 
 

@@ -18,7 +18,6 @@ The goal is to expose realistic failure modes in a controlled way.
 from dataclasses import dataclass
 from typing import List, Dict
 import random
-import time
 
 
 @dataclass
@@ -73,9 +72,9 @@ def get_cpm_predictions(ctx: ActionContext) -> List[float]:
     else:
         c4 = 0.15
 
-    # CPM 5 – noise model
-    random.seed(int(time.time() * 1000) % 2**32)
-    c5 = random.uniform(0.0, 1.0)
+    # CPM 5 – noise model, seeded from the action itself so runs are reproducible
+    rng = random.Random(f"{ctx.name}|{ctx.explanation}|{ctx.effect}|{ctx.deadline_steps}")
+    c5 = rng.uniform(0.0, 1.0)
 
     return [c1, c2, c3, c4, c5]
 

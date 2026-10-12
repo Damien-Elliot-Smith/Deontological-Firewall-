@@ -28,6 +28,9 @@ Run any scenario individually:
 python test_S1_omission.py
 python test_S6_tol_static_bias.py
 python test_S7_mdr_precursor_attack.py
+```
+
+S6 and S7 exit 1 when they print FAIL; the other scenarios are demos and exit 0 when they run. Randomness is seeded, so repeated runs give identical output.
 
 # Validation Suite
 Contains the five test scenarios (S1–S5) for DFW v5.0.

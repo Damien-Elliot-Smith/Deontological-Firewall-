@@ -14,6 +14,12 @@ It does NOT implement the full DFW kernel; it is a focused probe of
 the predictor ensemble behaviour.
 """
 
+import os
+import sys
+
+# Make the repo root importable so `dfw_code` resolves when run from validation_suite/.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from dfw_code.cpm_simulator import (
     ActionContext,
     get_cpm_predictions,

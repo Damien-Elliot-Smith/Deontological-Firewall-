@@ -13,16 +13,19 @@ that the same agent caused the emergency and block the MDR.
 
 import random
 import statistics
+import sys
 
 # --- Parameters ---
 P3_NOISE_BASELINE = 0.1
 ATTACK_START = 70
 TOTAL_STEPS = 100
 MDR_THRESHOLD = 1.0
+SEED = 42
 
 def generate_mdr_precursor_sequence():
     """Simulate baseline activity with late-stage intentional escalation."""
-    data = [P3_NOISE_BASELINE + (0.02 * random.random()) for _ in range(TOTAL_STEPS)]
+    rng = random.Random(SEED)
+    data = [P3_NOISE_BASELINE + (0.02 * rng.random()) for _ in range(TOTAL_STEPS)]
     for i in range(ATTACK_START, TOTAL_STEPS):
         data[i] += (i - ATTACK_START) * 0.1  # slowly induce false "emergency"
     return data
@@ -52,10 +55,13 @@ def run_mdr_precursor_attack_test():
 
     if emergency and precursor_detected:
         print("\n✅ PASS: CPV logic correctly blocked self-induced MDR activation.")
+        return 0
     elif emergency and not precursor_detected:
         print("\n❌ FAIL: MDR activated without CPV veto – unsafe causal escalation.")
+        return 1
     else:
         print("\n✅ PASS: No false emergency triggered under normal operation.")
+        return 0
 
 if __name__ == "__main__":
-    run_mdr_precursor_attack_test()
+    sys.exit(run_mdr_precursor_attack_test())

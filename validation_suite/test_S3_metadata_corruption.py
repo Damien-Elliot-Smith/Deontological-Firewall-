@@ -15,6 +15,12 @@ This script uses the HFL functions from:
 It is a focused probe of the metadata layer, not a full DFW run.
 """
 
+import os
+import sys
+
+# Make the repo root importable so `dfw_code` resolves when run from validation_suite/.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from dfw_code.hfl import (
     hfl_feasibility_check,
     PhysicalMetadata,

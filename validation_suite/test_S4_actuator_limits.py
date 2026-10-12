@@ -11,6 +11,12 @@ Show how the HFL reacts when actions are:
 This focuses on the physical constraint side of the DFW story.
 """
 
+import os
+import sys
+
+# Make the repo root importable so `dfw_code` resolves when run from validation_suite/.
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from dfw_code.hfl import hfl_feasibility_check
 
 def run_case(label: str, meta_dict):
